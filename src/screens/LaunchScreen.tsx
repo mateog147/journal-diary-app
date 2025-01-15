@@ -2,10 +2,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {Isologo} from '../components/atoms/Isologo';
 import {MyStackScreenProps} from '../interfaces/MyStackScreenProps';
+import { COLORS } from '../themes/constants/styles-constants';
 
 export const LaunchScreen = ({navigation}: MyStackScreenProps) => {
   useEffect(() => {
-    setTimeout(() => navigation.navigate('Home'), 1000);
+    setTimeout(() => navigation.navigate('Login'), 1000);
   });
   return (
     <View>
@@ -30,9 +31,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   title: {
-    color: 'black',
-    fontSize: 28,
-    fontWeight: '400',
+    color: COLORS.mainColor,
+    fontSize: 30,
+    fontWeight: '500',
     position: 'absolute',
     bottom: '9%',
   },

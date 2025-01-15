@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {FormTextInput} from '../atoms/FormTextInput';
+import {COLORS} from '../../themes/constants/styles-constants';
 
 interface Props {
   icon?: string;
@@ -31,7 +32,7 @@ export const FormInput = ({
       color: isInvalid ? 'red' : 'white',
     },
     title: {
-      color: '#ffae7e',
+      color: COLORS.tertiaryColor,
     },
   });
   return (

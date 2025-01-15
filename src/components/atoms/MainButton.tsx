@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {RootState} from '../../store/store';
 import {useSelector} from 'react-redux';
+import {COLORS} from '../../themes/constants/styles-constants';
 
 interface Props {
   text: string;
@@ -20,11 +21,13 @@ export const MainButton = ({
 }: Props) => {
   const styles = StyleSheet.create({
     btn: {
-      backgroundColor: backgroundColor ? backgroundColor : '#996ae1',
+      backgroundColor: backgroundColor
+        ? backgroundColor
+        : `${COLORS.secondaryColor}`,
       height: 60,
-      width: width ? `${width}%` : '75%',
+      width: width ? `${width}%` : '92%',
       alignSelf: 'center',
-      borderRadius: 25,
+      borderRadius: 20,
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: '#000',

@@ -11,6 +11,8 @@ import {
 import React, {useEffect} from 'react';
 import {FormInput} from '../components/molecules/FormInput';
 import {MainButton} from '../components/atoms/MainButton';
+import {MainTitle} from '../components/atoms/MainTitle';
+import {AnchorMessage} from '../components/atoms/AnchorMesage';
 
 export const LoginScreen = ({navigation}: any) => {
   useEffect(() => {
@@ -38,7 +40,7 @@ export const LoginScreen = ({navigation}: any) => {
   }, []);
   return (
     <View style={styles.formContainer}>
-      <Text>Wellcome!</Text>
+      <MainTitle title="Welcome Back!" />
       <FormInput icon="person" errorMsg="Not Valid" title="Email" />
       <FormInput
         icon="person"
@@ -49,7 +51,14 @@ export const LoginScreen = ({navigation}: any) => {
       <MainButton
         text="Login"
         action={() => {
-          navigation.navigate('Profile');
+          navigation.navigate('Home');
+        }}
+      />
+      <AnchorMessage
+        initialText="Don´t have an account?"
+        boldText="Sing up"
+        action={() => {
+          navigation.navigate('Singup');
         }}
       />
     </View>

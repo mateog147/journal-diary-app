@@ -1,5 +1,6 @@
 import {TextInput, View, StyleSheet, Text} from 'react-native';
 import React from 'react';
+import {COLORS} from '../../themes/constants/styles-constants';
 
 interface Props {
   placeholder?: string;
@@ -31,8 +32,8 @@ export const FormTextInput = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: '#b9b9ba',
-    borderBottomWidth: 1,
+    borderBottomColor: `${COLORS.mainColor}`,
+    borderBottomWidth: 2,
     backgroundColor: '#ffffff',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
