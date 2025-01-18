@@ -1,18 +1,7 @@
-import {
-  ActivityIndicator,
-  Alert,
-  BackHandler,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Alert, BackHandler, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
-import {FormInput} from '../components/molecules/FormInput';
-import {MainButton} from '../components/atoms/MainButton';
-import {MainTitle} from '../components/atoms/MainTitle';
-import {AnchorMessage} from '../components/atoms/AnchorMesage';
+import {LoginForm} from '../components/organism/LoginForm';
+import {setToken} from '../store/reducers/token';
 
 export const LoginScreen = ({navigation}: any) => {
   useEffect(() => {
@@ -38,26 +27,14 @@ export const LoginScreen = ({navigation}: any) => {
     );
     return () => backHandler.remove();
   }, []);
+
   return (
-    <View style={styles.formContainer}>
-      <MainTitle title="Welcome Back!" />
-      <FormInput icon="person" errorMsg="Not Valid" title="Email" />
-      <FormInput
-        icon="person"
-        errorMsg="Not Valid"
-        title="Password"
-        isSecureInput={true}
-      />
-      <MainButton
-        text="Login"
-        action={() => {
+    <View style={styles.loginScreen}>
+      <LoginForm
+        loginAction={() => {
           navigation.navigate('Home');
         }}
-      />
-      <AnchorMessage
-        initialText="Don´t have an account?"
-        boldText="Sing up"
-        action={() => {
+        singupAction={() => {
           navigation.navigate('Singup');
         }}
       />
@@ -66,18 +43,9 @@ export const LoginScreen = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
-  formContainer: {
-    flex: 4,
+  loginScreen: {
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    minHeight: 200,
-    backgroundColor: '#ffffff',
-  },
-
-  text: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: '400',
   },
 });

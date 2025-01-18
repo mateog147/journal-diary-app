@@ -42,7 +42,7 @@ export const MainButton = ({
     },
     btnText: {
       fontFamily: 'Roboto',
-      fontSize: 18,
+      fontSize: 20,
       color: color ? color : 'white',
       fontWeight: '600',
     },

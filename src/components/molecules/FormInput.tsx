@@ -33,6 +33,7 @@ export const FormInput = ({
     },
     title: {
       color: COLORS.tertiaryColor,
+      fontSize: 16,
     },
   });
   return (

@@ -17,7 +17,8 @@ export const AnchorMessage = ({initialText, boldText, action}: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.initialText}>{initialText} </Text>
-      <TouchableOpacity onPress={() => (action ? action() : console.log({boldText}))}>
+      <TouchableOpacity
+        onPress={() => (action ? action() : console.log({boldText}))}>
         <Text style={styles.pressableText}>{boldText}</Text>
       </TouchableOpacity>
     </View>
@@ -26,7 +27,6 @@ export const AnchorMessage = ({initialText, boldText, action}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: '92%',
@@ -37,8 +37,10 @@ const styles = StyleSheet.create({
   pressableText: {
     fontWeight: 'bold',
     color: COLORS.secondaryColor,
+    fontSize: 17,
   },
   initialText: {
     color: COLORS.tertiaryColor,
+    fontSize: 17,
   },
 });
