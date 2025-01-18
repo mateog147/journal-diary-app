@@ -1,5 +1,5 @@
-import Config from 'react-native-config';
+import {API_URL} from '@env';
 export const api = {
-  url: Config.API_URL,
+  url: API_URL,
   authPath: 'auth',
 };
