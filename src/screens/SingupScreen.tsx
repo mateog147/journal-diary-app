@@ -1,7 +1,8 @@
 import {ActivityIndicator, Text, TextInput, View} from 'react-native';
 import React from 'react';
+import {SingupForm} from '../components/organism/SingupForm';
 
-export const SingupScreen = () => {
+export const SingupScreen = ({navigation}: any) => {
   return (
     <View
       style={{
@@ -9,7 +10,14 @@ export const SingupScreen = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>Hola desde singup! 🎉</Text>
+      <SingupForm
+        goToLoginAction={() => {
+          navigation.navigate('Login');
+        }}
+        singupAction={() => {
+          navigation.navigate('Home');
+        }}
+      />
     </View>
   );
 };

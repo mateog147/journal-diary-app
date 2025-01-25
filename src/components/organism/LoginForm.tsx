@@ -43,13 +43,11 @@ export const LoginForm = ({loginAction, singupAction}: Props) => {
       <MainTitle title="Welcome Back!" />
       <View style={styles.inputsContainer}>
         <FormInput
-          icon="person"
           errorMsg="Not Valid"
           title="Email"
           onChangeInput={onChangeEmail}
         />
         <FormInput
-          icon="person"
           errorMsg="Not Valid"
           title="Password"
           isSecureInput={true}
