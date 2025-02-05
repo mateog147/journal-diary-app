@@ -3,7 +3,8 @@ import {LoginScreen} from '../screens/LoginScreen';
 import {SingupScreen} from '../screens/SingupScreen';
 import {LaunchScreen} from '../screens/LaunchScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { HomeScreen } from '../screens/HomeScreen';
+import {HomeScreen} from '../screens/HomeScreen';
+import {HomeTabs} from './HomeTabsNavigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ export const StackNavigation = () => {
       <Stack.Screen name="Launch" component={LaunchScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Singup" component={SingupScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeTabs} />
     </Stack.Navigator>
   );
 };

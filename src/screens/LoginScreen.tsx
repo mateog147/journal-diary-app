@@ -1,7 +1,8 @@
-import {Alert, BackHandler, StyleSheet, View} from 'react-native';
+import {Alert, BackHandler, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {LoginForm} from '../components/organism/LoginForm';
 import {setToken} from '../store/reducers/token';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const LoginScreen = ({navigation}: any) => {
   useEffect(() => {

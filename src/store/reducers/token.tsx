@@ -7,7 +7,13 @@ export const tokenSlice = createSlice({
   },
   reducers: {
     setToken(state, action: PayloadAction<string>) {
-      state.token = action.payload;
+      switch (action.type) {
+        case 'LOGOUT':
+          state.token = '';
+          break;
+        default:
+          state.token = action.payload;
+      }
     },
   },
 });
