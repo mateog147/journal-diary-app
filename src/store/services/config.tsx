@@ -3,4 +3,5 @@ export const api = {
   url: API_URL,
   authPath: 'auth',
   userPath: 'api/user',
+  entryPath: 'api/entry',
 };

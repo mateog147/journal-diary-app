@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
 import {UserService} from '../store/services/UserService';
 import {emptyUser, setUser} from '../store/reducers/user';
-
+import {EntryForm} from '../components/organism/EntryForm';
 
 export const EntryScreen = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -57,9 +57,7 @@ export const EntryScreen = ({navigation}: any) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>Entry Screen!!! 🎉</Text>
-      <Text>Hello {user.contactInfo?.name}</Text>
-
+      <EntryForm onCreatedEntry={() => {}} />
     </View>
   );
 };
