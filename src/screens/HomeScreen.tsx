@@ -12,11 +12,13 @@ import {RootState} from '../store/store';
 import {UserService} from '../store/services/UserService';
 import {emptyUser, setUser} from '../store/reducers/user';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {HomeEntriesComponent} from '../components/organism/HomeEntries';
 
 export const HomeScreen = ({navigation}: any) => {
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.user);
   const userService = UserService();
+
   useEffect(() => {
     console.log('usando efecto  :>> ');
     console.log('user que ya esta :>> ', user);
@@ -57,11 +59,7 @@ export const HomeScreen = ({navigation}: any) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>HOME!!! 🎉</Text>
-      <Text>
-        <Ionicons name="ios-list" size={30} color="#900" />
-        Hello {user.contactInfo?.name}
-      </Text>
+      <HomeEntriesComponent />
     </View>
   );
 };

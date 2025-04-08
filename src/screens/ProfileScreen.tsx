@@ -57,7 +57,9 @@ export const ProfileScreen = ({navigation}: any) => {
         alignItems: 'center',
       }}>
       <Text>PROFILE!!! 🎉</Text>
-      <Text>Hello {user.contactInfo?.name}</Text>
+      <Text>name: {user.contactInfo?.name}</Text>
+      <Text>last name: {user.contactInfo?.lastName}</Text>
+      <Text>email: {user.contactInfo?.email}</Text>
     </View>
   );
 };

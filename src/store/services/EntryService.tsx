@@ -27,5 +27,24 @@ export const EntryService = () => {
         console.error(error);
       }
     },
+    getClientEntriesByDate: async (
+      dateString: string,
+    ): Promise<IEntry[] | undefined> => {
+      try {
+        console.log(`Start getClientEntriesByDate date: ${dateString}`)
+        const startDate = `${dateString}T00:00:00.500Z`
+        const endDate = `${dateString}T23:59:59.500Z`
+        const response: Response = await fetch(`${URL}/?start=${startDate}&end=${endDate}`, {
+          method: 'GET',
+          headers: {Authorization: `Bearer ${token}`},
+        });
+        console.log(response.status);
+        const data: IEntry[] = await response.json();
+        console.log('data entries:>> ', data);
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   };
 };

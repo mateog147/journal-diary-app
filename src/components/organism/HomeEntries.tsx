@@ -7,53 +7,51 @@ import {useDispatch} from 'react-redux';
 import {LoginDto} from '../../interfaces/LoginDto';
 import {CreateEntryDto} from '../../interfaces/EntryDto';
 import {EntryService} from '../../store/services/EntryService';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {EntriesList} from '../molecules/EntriesList';
+import {IEntry} from '../../interfaces/EntryInterface';
 
 interface Props {
-  onCreatedEntry: () => void;
+  onCreatedEntry?: () => void;
 }
-export const EntryForm = ({onCreatedEntry}: Props) => {
+export const HomeEntriesComponent = ({onCreatedEntry}: Props) => {
   const dispatch = useDispatch();
   const [title, onChangeTitle] = React.useState('');
-  const [content, onChangeContent] = React.useState('');
+  const [entries, setEntries] = React.useState<IEntry[]>([]);
+  const [selected, setSelected] = React.useState(
+    new Date().toISOString().slice(0, 10),
+  );
 
-
-  const createEntryDto: CreateEntryDto = {
-    title: title,
-    content: content,
-  };
   const entryService = EntryService();
 
-  const onLogin = async () => {
-    const entry = await entryService.createEntry({
-      ...createEntryDto,
-    });
-    console.log('token :>> ', entry);
-    if (!entry) {
+  const refreshEntriesByDate = async (dateStr: string) => {
+    const entriesFetch = await entryService.getClientEntriesByDate(dateStr);
+    console.log('entries :>> ', entriesFetch);
+    if (!entriesFetch) {
       Alert.alert('Error try again');
     } else {
-      onCreatedEntry();
+      setEntries([...entriesFetch]);
     }
   };
   return (
     <View style={styles.formContainer}>
-      <MainTitle title="What are you thinking today?" />
-      <View style={styles.inputsContainer}>
-        <FormInput
-          errorMsg="Not Valid"
-          title="Title"
-          onChangeInput={onChangeTitle}
-        />
-        <FormInput
-          errorMsg="Not Valid"
-          title="Story"
-          onChangeInput={onChangeContent}
-          height={360}
-          maxLength={1000}
-        />
-      </View>
-
+      <Calendar
+        onDayPress={(day: any) => {
+          setSelected(day.dateString);
+          refreshEntriesByDate(day.dateString);
+        }}
+        markedDates={{
+          [selected]: {
+            selected: true,
+            disableTouchEvent: true,
+            selectedDotColor: 'orange',
+          },
+        }}
+      />
+      <MainTitle title="Recent Entries" />
+      <EntriesList entries={[...entries]} />
       <View style={styles.buttonContainer}>
-        <MainButton text="Submit" action={onLogin} />
+        <MainButton text="Submit" action={() => {}} />
       </View>
     </View>
   );

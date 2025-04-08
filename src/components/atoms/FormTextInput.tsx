@@ -8,6 +8,8 @@ interface Props {
   value?: string;
   isNumeric?: boolean;
   isSecureInput?: boolean;
+  height?: number;
+  maxLength?: number;
 }
 export const FormTextInput = ({
   placeholder,
@@ -15,7 +17,25 @@ export const FormTextInput = ({
   isNumeric,
   onChangeAction,
   isSecureInput,
+  height,
+  maxLength
 }: Props) => {
+  const styles = StyleSheet.create({
+    container: {
+      borderBottomColor: `${COLORS.mainColor}`,
+      borderBottomWidth: 2,
+      backgroundColor: '#ffffff',
+      borderTopLeftRadius: 8,
+      borderTopRightRadius: 8,
+      height: height ?? 53,
+      width: '100%',
+    },
+    input: {
+      fontSize: 18,
+      width: '100%',
+      overflow: 'visible',
+    },
+  });
   return (
     <View style={styles.container}>
       <TextInput
@@ -25,21 +45,9 @@ export const FormTextInput = ({
         value={value}
         keyboardType={isNumeric ? 'numeric' : 'default'}
         secureTextEntry={isSecureInput}
+        multiline
+        maxLength={maxLength ?? 100}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    borderBottomColor: `${COLORS.mainColor}`,
-    borderBottomWidth: 2,
-    backgroundColor: '#ffffff',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    height: 53,
-  },
-  input: {
-    fontSize: 18,
-  },
-});

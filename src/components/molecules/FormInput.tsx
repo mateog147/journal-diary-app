@@ -13,6 +13,8 @@ interface Props {
   isNumeric?: boolean;
   title?: string;
   isSecureInput?: boolean;
+  height?: number;
+  maxLength?: number;
 }
 export const FormInput = ({
   icon,
@@ -24,6 +26,8 @@ export const FormInput = ({
   isNumeric,
   title,
   isSecureInput,
+  height,
+  maxLength
 }: Props) => {
   const styles = StyleSheet.create({
     container: {flexDirection: 'row', alignSelf: 'center', width: '92%'},
@@ -46,6 +50,8 @@ export const FormInput = ({
           onChangeAction={onChangeInput}
           placeholder={placeholder}
           isSecureInput={isSecureInput}
+          height={height}
+          maxLength={maxLength}
         />
         <Text style={styles.errorTxt}>{errorMsg ? errorMsg : 'Error'}</Text>
       </View>

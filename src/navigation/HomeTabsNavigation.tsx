@@ -18,11 +18,11 @@ export const HomeTabs = () => {
           console.log('route :>> ', route);
           if (route.name === 'Main') {
             console.log('home :>> ');
-            iconName = focused
-              ? 'airplane'
-              : 'alarm';
+            iconName = focused ? 'home' : 'calendar';
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'rocket' : 'rocket';
+            iconName = focused ? 'person' : 'person';
+          } else if (route.name === 'Entry') {
+            iconName = focused ? 'create' : 'create';
           }
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -60,9 +60,6 @@ export const HomeTabs = () => {
         component={EntryScreen}
         options={{
           tabBarLabel: 'Add Entry',
-          tabBarIcon: ({color, size}) => (
-            <FontAwesome5 name="hand-holding-heart" size={size} color={color} />
-          ),
           tabBarLabelStyle: {
             fontSize: 16,
           },
