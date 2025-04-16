@@ -23,10 +23,15 @@ export const HomeScreen = ({navigation}: any) => {
     console.log('usando efecto  :>> ');
     console.log('user que ya esta :>> ', user);
     if (!user?.userName) {
-      userService.getClient().then(user => {
-        console.log('user :>> ', user);
-        dispatch(setUser(user ?? emptyUser));
-      });
+      userService
+        .getClient()
+        .then(user => {
+          console.log('user :>> ', user);
+          dispatch(setUser(user ?? emptyUser));
+        })
+        .catch(() => {
+          console.log('catch');
+        });
     }
   });
   useEffect(() => {

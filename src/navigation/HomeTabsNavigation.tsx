@@ -59,7 +59,7 @@ export const HomeTabs = () => {
         name="Entry"
         component={EntryScreen}
         options={{
-          tabBarLabel: 'Add Entry',
+          tabBarLabel: 'Entry',
           tabBarLabelStyle: {
             fontSize: 16,
           },

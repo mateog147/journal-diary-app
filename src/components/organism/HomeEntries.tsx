@@ -1,15 +1,13 @@
 import {Alert, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {MainButton} from '../atoms/MainButton';
 import {MainTitle} from '../atoms/MainTitle';
-import {FormInput} from '../molecules/FormInput';
 import {useDispatch} from 'react-redux';
-import {LoginDto} from '../../interfaces/LoginDto';
-import {CreateEntryDto} from '../../interfaces/EntryDto';
 import {EntryService} from '../../store/services/EntryService';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import {EntriesList} from '../molecules/EntriesList';
 import {IEntry} from '../../interfaces/EntryInterface';
+import {IconButton} from '../atoms/IconButton';
+import {COLORS} from '../../themes/constants/styles-constants';
 
 interface Props {
   onCreatedEntry?: () => void;
@@ -51,7 +49,12 @@ export const HomeEntriesComponent = ({onCreatedEntry}: Props) => {
       <MainTitle title="Recent Entries" />
       <EntriesList entries={[...entries]} />
       <View style={styles.buttonContainer}>
-        <MainButton text="Submit" action={() => {}} />
+        <IconButton
+          iconName="add-circle-outline"
+          action={() => {}}
+          color={COLORS.secondaryColor}
+          size={70}
+        />
       </View>
     </View>
   );
@@ -76,6 +79,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    padding: 4
   },
   inputsContainer: {},
 });
