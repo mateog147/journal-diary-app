@@ -54,10 +54,14 @@ export const ProfileScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-
       <MainTitle title='User Information'/>
       {loading ? (
-        <ActivityIndicator size="large" color={COLORS.mainColor} style={{ marginTop: 40 }} />
+        <ActivityIndicator 
+          testID="loading-indicator"
+          size="large" 
+          color={COLORS.mainColor} 
+          style={{ marginTop: 40 }} 
+        />
       ) : (
         <View style={styles.infoContainer}>
           <View style={styles.infoRow}>

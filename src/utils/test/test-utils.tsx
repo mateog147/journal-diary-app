@@ -20,15 +20,15 @@ interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
 function renderWithProviders(
   ui: ReactElement,
   {
-    preloadedState = {},|
-  store = configureStore({
-    reducer: {
-      token: tokenReducer,
-      user: userReducer,
-    },
-    preloadedState,
-  }),
-  ...renderOptions
+    preloadedState = {},
+    store = configureStore({
+      reducer: {
+        auth: tokenReducer,
+        user: userReducer,
+      },
+      preloadedState,
+    }),
+    ...renderOptions
   }: CustomRenderOptions = {}
 ) {
   function Wrapper({ children }: { children: React.ReactNode }): ReactElement {
@@ -41,5 +41,5 @@ function renderWithProviders(
 // Re-exportar todo de testing-library
 export * from '@testing-library/react-native';
 
-// Sobrescribir render con nuestra versión personalizada
-export { renderWithProviders as render };
+
+export { renderWithProviders };
