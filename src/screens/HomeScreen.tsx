@@ -1,27 +1,21 @@
 import {
-  ActivityIndicator,
   Alert,
   BackHandler,
-  Text,
-  TextInput,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../store/store';
-import {UserService} from '../store/services/UserService';
-import {emptyUser, setUser} from '../store/reducers/user';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {HomeEntriesComponent} from '../components/organism/HomeEntries';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { UserService } from '../store/services/UserService';
+import { emptyUser, setUser } from '../store/reducers/user';
+import { HomeEntriesComponent } from '../components/organism/HomeEntries';
 
-export const HomeScreen = ({navigation}: any) => {
+export const HomeScreen = ({ navigation, route }: any) => {
   const dispatch = useDispatch();
-  const {user} = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
   const userService = UserService();
 
   useEffect(() => {
-    console.log('usando efecto  :>> ');
-    console.log('user que ya esta :>> ', user);
     if (!user?.userName) {
       userService
         .getClient()
@@ -43,7 +37,7 @@ export const HomeScreen = ({navigation}: any) => {
             onPress: () => null,
             style: 'cancel',
           },
-          {text: 'YES', onPress: () => navigation.navigate('Login')},
+          { text: 'YES', onPress: () => navigation.navigate('Login') },
         ]);
         return true;
       } else {
@@ -64,7 +58,7 @@ export const HomeScreen = ({navigation}: any) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <HomeEntriesComponent />
+      <HomeEntriesComponent navigation={navigation} refreshTrigger={route.params?.refresh} />
     </View>
   );
 };

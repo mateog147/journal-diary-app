@@ -1,21 +1,36 @@
-import {Alert, StyleSheet, View} from 'react-native';
-import React from 'react';
-import {MainButton} from '../atoms/MainButton';
-import {MainTitle} from '../atoms/MainTitle';
-import {FormInput} from '../molecules/FormInput';
-import {useDispatch} from 'react-redux';
-import {LoginDto} from '../../interfaces/LoginDto';
-import {CreateEntryDto} from '../../interfaces/EntryDto';
-import {EntryService} from '../../store/services/EntryService';
+import { Alert, StyleSheet, View, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
+import { MainButton } from '../atoms/MainButton';
+import { MainTitle } from '../atoms/MainTitle';
+import { FormInput } from '../molecules/FormInput';
+import { useDispatch } from 'react-redux';
+import { CreateEntryDto } from '../../interfaces/EntryDto';
+import { EntryService } from '../../store/services/EntryService';
+import { IEntry } from '../../interfaces/EntryInterface';
+import { COLORS } from '../../themes/constants/styles-constants';
 
 interface Props {
   onCreatedEntry: () => void;
+  entry?: IEntry;
 }
-export const EntryForm = ({onCreatedEntry}: Props) => {
+export const EntryForm = ({ onCreatedEntry, entry }: Props) => {
   const dispatch = useDispatch();
-  const [title, onChangeTitle] = React.useState('');
-  const [content, onChangeContent] = React.useState('');
+  const [title, onChangeTitle] = React.useState(entry?.title || '');
+  const [content, onChangeContent] = React.useState(entry?.content || '');
+  const [isEditing, setIsEditing] = React.useState(!!entry);
+  const [loading, setLoading] = React.useState(false);
 
+  useEffect(() => {
+    if (entry) {
+      onChangeTitle(entry.title);
+      onChangeContent(entry.content);
+      setIsEditing(true);
+    } else {
+      onChangeTitle('');
+      onChangeContent('');
+      setIsEditing(false);
+    }
+  }, [entry]);
 
   const createEntryDto: CreateEntryDto = {
     title: title,
@@ -23,25 +38,45 @@ export const EntryForm = ({onCreatedEntry}: Props) => {
   };
   const entryService = EntryService();
 
-  const onLogin = async () => {
-    const entry = await entryService.createEntry({
-      ...createEntryDto,
-    });
-    console.log('token :>> ', entry);
-    if (!entry) {
-      Alert.alert('Error try again');
-    } else {
-      onCreatedEntry();
+  const handleSubmit = async () => {
+    if (!title.trim() || !content.trim()) {
+      Alert.alert('Error', 'Title and content are required');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      let result;
+      if (isEditing && entry?.id) {
+        result = await entryService.updateEntry(entry.id, createEntryDto);
+      } else {
+        result = await entryService.createEntry(createEntryDto);
+      }
+
+      if (!result) {
+        Alert.alert('Error', 'Failed to save entry. Please try again.');
+      } else {
+        console.log('Entry saved successfully');
+        entry = undefined;
+        onCreatedEntry();
+      }
+    } catch (error) {
+      console.error('Entry save error:', error);
+      Alert.alert('Error', 'An error occurred while saving the entry');
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <View style={styles.formContainer}>
-      <MainTitle title="What are you thinking today?" />
+      <MainTitle title={isEditing ? "Edit your entry" : "What are you thinking today?"} />
       <View style={styles.inputsContainer}>
         <FormInput
           errorMsg="Not Valid"
           title="Title"
           onChangeInput={onChangeTitle}
+          value={title}
         />
         <FormInput
           errorMsg="Not Valid"
@@ -49,11 +84,17 @@ export const EntryForm = ({onCreatedEntry}: Props) => {
           onChangeInput={onChangeContent}
           height={360}
           maxLength={1000}
+          value={content}
+          multiline={true}
         />
       </View>
 
       <View style={styles.buttonContainer}>
-        <MainButton text="Submit" action={onLogin} />
+        {loading ? (
+          <ActivityIndicator size="large" color={COLORS.mainColor} />
+        ) : (
+          <MainButton text={isEditing ? "Update" : "Submit"} action={handleSubmit} />
+        )}
       </View>
     </View>
   );

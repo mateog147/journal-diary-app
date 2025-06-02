@@ -1,22 +1,22 @@
 import {
-  ActivityIndicator,
   Alert,
   BackHandler,
-  Text,
-  TextInput,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
 import {UserService} from '../store/services/UserService';
 import {emptyUser, setUser} from '../store/reducers/user';
 import {EntryForm} from '../components/organism/EntryForm';
+import {IEntry} from '../interfaces/EntryInterface';
 
-export const EntryScreen = ({navigation}: any) => {
+export const EntryScreen = ({navigation, route}: any) => {
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.user);
   const userService = UserService();
+  const [selectedEntry, setSelectedEntry] = useState<IEntry | undefined>(route.params?.entry);
+
   useEffect(() => {
     console.log('usando efecto  :>> ');
     console.log('user que ya esta :>> ', user);
@@ -26,7 +26,16 @@ export const EntryScreen = ({navigation}: any) => {
         dispatch(setUser(user ?? emptyUser));
       });
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.entry) {
+      setSelectedEntry(route.params.entry);
+    }else{
+      setSelectedEntry(undefined);
+    }
+  }, [route.params]);
+
   useEffect(() => {
     const backAction = () => {
       if (navigation.isFocused()) {
@@ -36,7 +45,7 @@ export const EntryScreen = ({navigation}: any) => {
             onPress: () => null,
             style: 'cancel',
           },
-          {text: 'YES', onPress: () => navigation.navigate('Login')},
+          {text: 'YES', onPress: () => navigation.navigate('Home')},
         ]);
         return true;
       } else {
@@ -50,6 +59,12 @@ export const EntryScreen = ({navigation}: any) => {
     );
     return () => backHandler.remove();
   }, []);
+
+  const handleEntryCreated = () => {
+    console.log('handleEntryCreated');
+    navigation.navigate('Main', { refresh: true });
+  };
+
   return (
     <View
       style={{
@@ -57,7 +72,10 @@ export const EntryScreen = ({navigation}: any) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <EntryForm onCreatedEntry={() => {}} />
+      <EntryForm 
+        onCreatedEntry={handleEntryCreated} 
+        entry={selectedEntry}
+      />
     </View>
   );
 };

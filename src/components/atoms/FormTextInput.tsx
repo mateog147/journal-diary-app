@@ -1,6 +1,6 @@
-import {TextInput, View, StyleSheet, Text} from 'react-native';
+import { TextInput, View, StyleSheet, Text } from 'react-native';
 import React from 'react';
-import {COLORS} from '../../themes/constants/styles-constants';
+import { COLORS } from '../../themes/constants/styles-constants';
 
 interface Props {
   placeholder?: string;
@@ -10,6 +10,7 @@ interface Props {
   isSecureInput?: boolean;
   height?: number;
   maxLength?: number;
+  multiline?: boolean;
 }
 export const FormTextInput = ({
   placeholder,
@@ -18,7 +19,8 @@ export const FormTextInput = ({
   onChangeAction,
   isSecureInput,
   height,
-  maxLength
+  maxLength,
+  multiline,
 }: Props) => {
   const styles = StyleSheet.create({
     container: {
@@ -39,13 +41,13 @@ export const FormTextInput = ({
   return (
     <View style={styles.container}>
       <TextInput
+        secureTextEntry={isSecureInput ?? false}
         onChangeText={onChangeAction}
         style={styles.input}
         placeholder={placeholder}
         value={value}
         keyboardType={isNumeric ? 'numeric' : 'default'}
-        secureTextEntry={isSecureInput}
-        multiline
+        multiline={multiline ?? false}
         maxLength={maxLength ?? 100}
       />
     </View>

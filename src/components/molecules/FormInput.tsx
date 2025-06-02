@@ -15,6 +15,7 @@ interface Props {
   isSecureInput?: boolean;
   height?: number;
   maxLength?: number;
+  multiline?: boolean;
 }
 export const FormInput = ({
   icon,
@@ -27,7 +28,8 @@ export const FormInput = ({
   title,
   isSecureInput,
   height,
-  maxLength
+  maxLength,
+  multiline,
 }: Props) => {
   const styles = StyleSheet.create({
     container: {flexDirection: 'row', alignSelf: 'center', width: '92%'},
@@ -52,6 +54,7 @@ export const FormInput = ({
           isSecureInput={isSecureInput}
           height={height}
           maxLength={maxLength}
+          multiline={multiline}
         />
         <Text style={styles.errorTxt}>{errorMsg ? errorMsg : 'Error'}</Text>
       </View>

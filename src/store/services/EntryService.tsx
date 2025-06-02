@@ -46,5 +46,49 @@ export const EntryService = () => {
         console.error(error);
       }
     },
+    deleteEntry: async (entryId: string): Promise<boolean> => {
+      try {
+        const response: Response = await fetch(`${URL}/${entryId}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('Delete entry status:', response.status);
+        return response.ok;
+      } catch (error) {
+        console.error('Error deleting entry:', error);
+        return false;
+      }
+    },
+    updateEntry: async (entryId: string, dto: CreateEntryDto): Promise<IEntry | undefined> => {
+      try {
+        const response: Response = await fetch(`${URL}/${entryId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            title: dto.title,
+            content: dto.content
+          })
+        });
+        
+        console.log('Update entry status:', response.status);
+        
+        if (response.ok) {
+          const data: IEntry = await response.json();
+          console.log('Updated entry data service:', data);
+          return data;
+        }
+        return undefined;
+      } catch (error) {
+        console.error('Error updating entry:', error);
+        return undefined;
+      }
+    },
   };
 };

@@ -13,7 +13,7 @@ export type LoginAction =
   | {type: 'LOGIN'; input: LoginData}
   | {type: 'LOGOUT'; user: UserData};
 
-// action creators
+
 export function loginRequest(input: LoginData): LoginAction {
   return {type: 'LOGIN', input};
 }

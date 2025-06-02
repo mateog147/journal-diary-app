@@ -8,8 +8,10 @@ import {EntryListItem} from './EntryListItem';
 
 interface Props {
   entries: IEntry[];
+  onEditEntry?: (entry: IEntry) => void;
+  onDeleteEntry?: (entry: IEntry) => void;
 }
-export const EntriesList = ({entries}: Props) => {
+export const EntriesList = ({entries, onEditEntry, onDeleteEntry}: Props) => {
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -40,8 +42,10 @@ export const EntriesList = ({entries}: Props) => {
         data={[...entries]}
         renderItem={({item}) => (
           <EntryListItem
-            title={item.title}
+            entry={item}
             customStyle={styles.listContainer}
+            onEdit={onEditEntry}
+            onDelete={onDeleteEntry}
           />
         )}
       />

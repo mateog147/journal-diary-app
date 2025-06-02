@@ -2,21 +2,32 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '../../themes/constants/styles-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { IconButton } from '../atoms/IconButton';
+import {IconButton} from '../atoms/IconButton';
+import {IEntry} from '../../interfaces/EntryInterface';
 
 interface Props {
-  title: string;
+  entry: IEntry;
   size?: number;
   customStyle?: any;
+  onEdit?: (entry: IEntry) => void;
+  onDelete?: (entry: IEntry) => void;
 }
 
-export const EntryListItem = ({title, size, customStyle}: Props) => {
+export const EntryListItem = ({entry, size, customStyle, onEdit, onDelete}: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={getTitleStyles(size, customStyle)}>{title}</Text>
+      <Text style={getTitleStyles(size, customStyle)}>{entry.title}</Text>
       <View style={styles.iconContainer}>
-        <IconButton iconName='book' size={38} />
-        <IconButton iconName='trash' size={38} />
+        <IconButton 
+          iconName='book' 
+          size={38} 
+          action={() => onEdit && onEdit(entry)} 
+        />
+        <IconButton 
+          iconName='trash' 
+          size={38} 
+          action={() => onDelete && onDelete(entry)} 
+        />
       </View>
     </View>
   );
