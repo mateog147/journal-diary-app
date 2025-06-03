@@ -3,7 +3,6 @@ import {api} from './config';
 
 export const AuthService = () => {
   const URL = `${api.url}/${api.authPath}`;
-  console.log('URL :>> ', URL);
   return {
     login: async (loginDto: LoginDto): Promise<string | undefined> => {
       try {

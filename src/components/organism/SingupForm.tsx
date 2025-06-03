@@ -1,32 +1,34 @@
-import {Alert, StyleSheet, View} from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
 import React from 'react';
-import {MainButton} from '../atoms/MainButton';
-import {AnchorMessage} from '../atoms/AnchorMesage';
-import {MainTitle} from '../atoms/MainTitle';
-import {FormInput} from '../molecules/FormInput';
-import {useDispatch, useSelector} from 'react-redux';
-import {LoginDto} from '../../interfaces/LoginDto';
-import {AuthService} from '../../store/services/AuthService';
-import {RootState} from '../../store/store';
-import {setToken} from '../../store/reducers/token';
-import {FormSelectPiecker} from '../molecules/FormSelectPiecker';
-import {GENDERS} from '../../../types/constants/gender';
-import {SingupDto} from '../../interfaces/SingupDto';
-import {UserService} from '../../store/services/UserService';
+import { MainButton } from '../atoms/MainButton';
+import { AnchorMessage } from '../atoms/AnchorMesage';
+import { MainTitle } from '../atoms/MainTitle';
+import { FormInput } from '../molecules/FormInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginDto } from '../../interfaces/LoginDto';
+import { AuthService } from '../../store/services/AuthService';
+import { RootState } from '../../store/store';
+import { setToken } from '../../store/reducers/token';
+import { FormSelectPiecker } from '../molecules/FormSelectPiecker';
+import { GENDERS } from '../../../types/constants/gender';
+import { SingupDto } from '../../interfaces/SingupDto';
+import { UserService } from '../../store/services/UserService';
+import { COLORS } from '../../themes/constants/styles-constants';
 
 interface Props {
   singupAction: () => void;
   goToLoginAction?: () => void;
 }
-export const SingupForm = ({goToLoginAction, singupAction}: Props) => {
+export const SingupForm = ({ goToLoginAction, singupAction }: Props) => {
   const dispatch = useDispatch();
-  const {token} = useSelector((state: RootState) => state.token);
+  const { token } = useSelector((state: RootState) => state.token);
   const [email, onChangeEmail] = React.useState('');
   const [name, onChangeName] = React.useState('');
   const [lastName, onChangeLastName] = React.useState('');
   const [pwd, onChangePwd] = React.useState('');
   const [gender, setGender] = React.useState('');
   const [birthdate, setBirthdate] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   const singupDto: SingupDto = {
     password: pwd,
@@ -40,6 +42,7 @@ export const SingupForm = ({goToLoginAction, singupAction}: Props) => {
   const authService = AuthService();
 
   const onSingUp = async () => {
+    setLoading(true);
     const user = await userService.singUp({
       ...singupDto,
     });
@@ -56,6 +59,8 @@ export const SingupForm = ({goToLoginAction, singupAction}: Props) => {
     } else {
       singupAction();
     }
+    setLoading(false);
+
   };
   return (
     <View style={styles.formContainer}>
@@ -97,7 +102,11 @@ export const SingupForm = ({goToLoginAction, singupAction}: Props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <MainButton text="Sign Up" action={onSingUp} />
+        {loading ? (
+          <ActivityIndicator size="large" color={COLORS.mainColor} />
+        ) : (
+          <MainButton text="Sign Up" action={onSingUp} />
+        )}
         <AnchorMessage
           initialText="Already have an account?"
           boldText="Login"
