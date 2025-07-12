@@ -104,16 +104,10 @@ export const EntryForm = ({ onCreatedEntry, entry }: Props) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    flex: 4,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
     width: '100%',
-    minHeight: 200,
-    maxHeight: '100%',
-    backgroundColor: '#ffffff',
+    paddingVertical: 16,
   },
-
   text: {
     color: 'black',
     fontSize: 18,
@@ -121,6 +115,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
+    marginTop: 20,
+    paddingBottom: 20,
   },
-  inputsContainer: {},
+  inputsContainer: {
+    width: '100%',
+    marginTop: 16,
+  },
 });

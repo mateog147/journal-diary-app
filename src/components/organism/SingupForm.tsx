@@ -119,16 +119,13 @@ export const SingupForm = ({ goToLoginAction, singupAction }: Props) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    flex: 4,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    minHeight: 200,
-    maxHeight: '100%',
+    paddingVertical: 16,
     backgroundColor: '#ffffff',
   },
-
   text: {
     color: 'black',
     fontSize: 18,
@@ -136,6 +133,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
+    marginTop: 20,
+    paddingBottom: 20,
   },
-  inputsContainer: {},
+  inputsContainer: {
+    width: '100%',
+    marginTop: 16,
+  },
 });

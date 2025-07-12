@@ -31,11 +31,13 @@ export const FormTextInput = ({
       borderTopRightRadius: 8,
       height: height ?? 53,
       width: '100%',
+      paddingHorizontal: 5,
     },
     input: {
       fontSize: 18,
       width: '100%',
-      overflow: 'visible',
+      textAlignVertical: multiline ? 'top' : 'center',
+      paddingTop: multiline ? 10 : 0,
     },
   });
   return (

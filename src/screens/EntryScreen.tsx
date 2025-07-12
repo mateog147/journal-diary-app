@@ -1,4 +1,4 @@
-import {Alert, BackHandler, View} from 'react-native';
+import {Alert, BackHandler, View, KeyboardAvoidingView, ScrollView, Platform} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
@@ -40,13 +40,33 @@ export const EntryScreen = ({navigation, route}: any) => {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        backgroundColor: '#ffffff',
       }}>
-      <EntryForm onCreatedEntry={handleEntryCreated} entry={selectedEntry} />
-    </View>
+      <ScrollView 
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          width: '100%',
+          backgroundColor: '#ffffff',
+        }}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        style={{backgroundColor: '#ffffff'}}>
+        <View
+          style={{
+            flex: 1,
+            width: '100%',
+            paddingHorizontal: 16,
+            backgroundColor: '#ffffff',
+          }}>
+          <EntryForm onCreatedEntry={handleEntryCreated} entry={selectedEntry} />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
