@@ -20,12 +20,10 @@ export const IconButton = ({
 }: Props) => {
   const styles = StyleSheet.create({
     btn: {
-      backgroundColor: color
-        ? color
-        : `${COLORS.mainColor}`,
-      height: size ? size: 50,
-      width: size ? size: 50,
-      borderRadius: borderRadius ? borderRadius: 10,
+      backgroundColor: color ? color : `${COLORS.mainColor}`,
+      height: size ? size : 50,
+      width: size ? size : 50,
+      borderRadius: borderRadius ? borderRadius : 10,
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: '#000',
@@ -48,8 +46,14 @@ export const IconButton = ({
   return (
     <TouchableOpacity
       style={styles.btn}
-      onPress={() => (action ? action('') : console.log('icon buton press'))}>
-      <Ionicons name={iconName} size={size ? size-6 : 22} color={COLORS.tertiaryColor} />
+      onPress={() => (action ? action('') : console.log('icon buton press'))}
+      accessibilityRole="button">
+      <Ionicons
+        name={iconName}
+        size={size ? size - 6 : 22}
+        color={COLORS.tertiaryColor}
+        testID="icon-button-icon"
+      />
     </TouchableOpacity>
   );
 };

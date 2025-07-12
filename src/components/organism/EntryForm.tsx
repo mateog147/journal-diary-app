@@ -75,12 +75,14 @@ export const EntryForm = ({ onCreatedEntry, entry }: Props) => {
         <FormInput
           errorMsg="Not Valid"
           title="Title"
+          placeholder="Title"
           onChangeInput={onChangeTitle}
           value={title}
         />
         <FormInput
           errorMsg="Not Valid"
           title="Story"
+          placeholder="Story"
           onChangeInput={onChangeContent}
           height={360}
           maxLength={1000}

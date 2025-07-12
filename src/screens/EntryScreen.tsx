@@ -1,8 +1,4 @@
-import {
-  Alert,
-  BackHandler,
-  View,
-} from 'react-native';
+import {Alert, BackHandler, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/store';
@@ -15,7 +11,9 @@ export const EntryScreen = ({navigation, route}: any) => {
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.user);
   const userService = UserService();
-  const [selectedEntry, setSelectedEntry] = useState<IEntry | undefined>(route.params?.entry);
+  const [selectedEntry, setSelectedEntry] = useState<IEntry | undefined>(
+    route.params?.entry,
+  );
 
   useEffect(() => {
     console.log('usando efecto  :>> ');
@@ -31,38 +29,14 @@ export const EntryScreen = ({navigation, route}: any) => {
   useEffect(() => {
     if (route.params?.entry) {
       setSelectedEntry(route.params.entry);
-    }else{
+    } else {
       setSelectedEntry(undefined);
     }
   }, [route.params]);
 
-  useEffect(() => {
-    const backAction = () => {
-      if (navigation.isFocused()) {
-        Alert.alert('Hold on!', 'Are you sure you want exit', [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          {text: 'YES', onPress: () => navigation.navigate('Home')},
-        ]);
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-    return () => backHandler.remove();
-  }, []);
-
   const handleEntryCreated = () => {
     console.log('handleEntryCreated');
-    navigation.navigate('Main', { refresh: true });
+    navigation.navigate('Main', {refresh: true});
   };
 
   return (
@@ -72,10 +46,7 @@ export const EntryScreen = ({navigation, route}: any) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <EntryForm 
-        onCreatedEntry={handleEntryCreated} 
-        entry={selectedEntry}
-      />
+      <EntryForm onCreatedEntry={handleEntryCreated} entry={selectedEntry} />
     </View>
   );
 };

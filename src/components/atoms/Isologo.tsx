@@ -11,6 +11,7 @@ export const Isologo = ({size, customStyle}: Props) => {
     <Image
       style={getLogoStyles(size, customStyle)}
       source={require('../../assets/images/logo.png')}
+      testID="isologo-image"
     />
   );
 };

@@ -11,6 +11,7 @@ export const emptyUser = {
   gender: '',
   birthDay: '',
 };
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -20,6 +21,11 @@ export const userSlice = createSlice({
     setUser(state, action: PayloadAction<IUser>) {
       state.user = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase('LOGOUT', (state) => {
+      state.user = emptyUser;
+    });
   },
 });
 
